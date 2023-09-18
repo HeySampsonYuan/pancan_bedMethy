@@ -69,8 +69,8 @@ def match_bs(anno_cpg,input_bed):
     res_bed = res_bed[~res_bed['beta_values'].isna()]
     input_bed = res_bed.filter(['CpG_chrm','CpG_beg','CpG_end_x','probe_strand','beta_values','Probe_ID'])
     input_bed = input_bed.rename(columns={'beta_values':'methylation_call','Probe_ID':'probe_id'})
-    input_bed['methylation_call'] = np.where((input_bed.methylation_call < 0.6 ),-1,input_bed.methylation_call)
-    input_bed['methylation_call'] = np.where((input_bed.methylation_call >= 0.6 ), 1,input_bed.methylation_call)
+    input_bed['methylation_call'] = np.where((input_bed.methylation_call < 60 ),-1,input_bed.methylation_call)
+    input_bed['methylation_call'] = np.where((input_bed.methylation_call >= 60 ), 1,input_bed.methylation_call)
     input_dnn = example_bed.merge(input_bed,how='left')
     input_dnn['methylation_call']=input_dnn['methylation_call'].fillna(0)
     return input_dnn,len(input_bed)
