@@ -1,0 +1,11 @@
+numpy==1.22.4
+pandas==1.5.1
+streamlit==1.16.0
+seaborn==0.11.2
+h5py=3.6.0
+matplotlib=3.4.3
+brewer2mpl=1.4.1
+st-annotated-text==3.0.0
+torch==1.12.1
+scikit-learn==1.0.2
+tabulate=0.8.9
