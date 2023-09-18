@@ -83,8 +83,9 @@ if option2 == 'bed file':
         st.success("File successfully uploaded")
 
         input_bed = pd.read_csv(uploaded_file,delim_whitespace=True)
-
+        
         st.write(input_bed.head())
+        
         input_bed['methylation_call'] = np.where((input_bed.methylation_call < 0.6 ),-1,input_bed.methylation_call)
         input_bed['methylation_call'] = np.where((input_bed.methylation_call > 0.6 ), 1,input_bed.methylation_call)
         input_cpgs = input_bed['probe_id'].tolist() 
@@ -119,9 +120,10 @@ elif option2 == 'bedMethyl':
     uploaded_file = st.file_uploader('Upload a bed file as the example: ')
     if uploaded_file != None:
         st.success("File successfully uploaded")
-
+        
         #input_bed = pd.read_csv(uploaded_file,delim_whitespace=True)
         input_bed = pd.read_csv(uploaded_file,delim_whitespace=True,header=None)
+        input_bed.columns = ['CpG_chrm','CpG_beg','CpG_end','Name','Score','Strandedness','Start','End','Color','Coverage','beta_values']
         bedMethyl_sample,num_Features = match_bs(anno_cpg,input_bed)
         st.write(bedMethyl_sample.head())
         input_dnn = example_bed.merge(bedMethyl_sample,how='left')
