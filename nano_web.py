@@ -48,7 +48,7 @@ print(pd.__version__)
 print(pd.__version__)
 
 print(pd.__version__)
-
+anno_cpg = pd.read_csv(urlopen('https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=Eb0KSwVCU49Agdru0TPlW34BIFNDMv0Zy640erZGlOQ7AA'))
 #anno_cpg = pickle.load(urlopen("https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=EYHGNr8FHKxIoX_pVXknaAABQrYpq1R47u141o0S-6UaiA"))
 print('anno_cpg done')
 if option1 == 'Pan-cancer_v5i':
