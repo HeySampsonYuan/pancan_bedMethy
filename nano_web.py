@@ -43,19 +43,14 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 #with st.sidebar:
 st.write("Hello, you are running on ", device, 'device')
-#option1 = st.radio('Pick A Trainningset:', ('Brain Tumor','Pan-cancer'))
 option1 = st.radio('Pick a Trainingset', ['Pan-cancer_v5i','Brain Tumor'])
-
+print(pd.__version__)
 anno_cpg = pd.read_pickle(urlopen("https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=EYHGNr8FHKxIoX_pVXknaAABQrYpq1R47u141o0S-6UaiA"))
 print('anno_cpg done')
 if option1 == 'Pan-cancer_v5i':
     model_files = pickle.load(urlopen("https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=EYHf66EDVJVPrjPaBimBcocBIGwCFvzx8MHOkrthOYj8CQ"))
 elif option1 == 'Brain Tumor':
     model_files = pickle.load(urlopen("https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=EZDvisj5GWlGg26ZalOpnx0BZdRGfRfye23mSKmY61shxw"))
-    
-#with open(model_files_path,'rb') as f:
-#    model_files = pickle.load(f)
-#anno_cpg = pickle.load(urlopen("https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=EYRxxhSOFjhLrbi30iEkKqYB6l3UVHbRGS3-NPTbAbv4ew"))
 
 model = model_files[0]
 enc =  model_files[1]
