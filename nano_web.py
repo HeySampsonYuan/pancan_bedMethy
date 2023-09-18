@@ -123,6 +123,7 @@ elif option2 == 'bedMethyl':
         
         #input_bed = pd.read_csv(uploaded_file,delim_whitespace=True)
         input_bed = pd.read_csv(uploaded_file,delim_whitespace=True,header=None)
+        st.write(bedMethyl_sample.head())
         input_bed.columns = ['CpG_chrm','CpG_beg','CpG_end','Name','Score','Strandedness','Start','End','Color','Coverage','beta_values']
         bedMethyl_sample,num_Features = match_bs(anno_cpg,input_bed)
         st.write(bedMethyl_sample.head())
