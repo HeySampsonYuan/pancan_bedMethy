@@ -47,7 +47,7 @@ st.write("Hello, you are running on ", device, 'device')
 option1 = st.radio('Pick a Trainingset', ['Pan-cancer_v5i','Brain Tumor'])
 
 anno_cpg = pickle.load(urlopen("https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=EYHGNr8FHKxIoX_pVXknaAABQrYpq1R47u141o0S-6UaiA"))
-
+print('anno_cpg done')
 if option1 == 'Pan-cancer_v5i':
     model_files = pickle.load(urlopen("https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=EYHf66EDVJVPrjPaBimBcocBIGwCFvzx8MHOkrthOYj8CQ"))
 elif option1 == 'Brain Tumor':
