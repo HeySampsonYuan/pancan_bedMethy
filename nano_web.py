@@ -131,7 +131,7 @@ elif option2 == 'bedMethyl':
         
         col1, col2 = st.columns(2)
         col1.metric(label="Number of Input  features", value=len(input_bed))
-        col2.metric(label="Number of Features mapped to Trainingset", num_Features)
+        col2.metric(label="Number of Features mapped to Trainingset",value= num_Features)
        
 
         DM.eval()
