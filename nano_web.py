@@ -124,9 +124,9 @@ elif option2 == 'bedMethyl':
         #input_bed = pd.read_csv(uploaded_file,delim_whitespace=True)
         input_bed = pd.read_csv(uploaded_file,delim_whitespace=True,header=None)
         st.write(input_bed.head())
-        input_bed.columns = ['CpG_chrm','CpG_beg','CpG_end','Name','Score','Strandedness','Start','End','Color','Coverage','beta_values']
+        input_bed.columns = ['CpG_chrm','CpG_beg','CpG_end','Name','Score','Strandedness','Start','End','R','G','B','Coverage','beta_values']
         bedMethyl_sample,num_Features = match_bs(anno_cpg,input_bed)
-        st.write(bedMethyl_sample.head())
+        #st.write(bedMethyl_sample.head())
         input_dnn = example_bed.merge(bedMethyl_sample,how='left')
         input_dnn['methylation_call']=input_dnn['methylation_call'].fillna(0)
         torch_tensor = torch.tensor(input_dnn['methylation_call'].values)   
