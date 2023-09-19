@@ -44,11 +44,12 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 #with st.sidebar:
 st.write("Hello, you are running on ", device, 'device')
 option1 = st.radio('Pick a Trainingset', ['Pan-cancer_v5i','Brain Tumor'])
-print(pd.__version__)
-print(pd.__version__)
 
-print(pd.__version__)
-anno_cpg = pd.read_csv(urlopen('https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=Eb0KSwVCU49Agdru0TPlW34BIFNDMv0Zy640erZGlOQ7AA'))
+@st.cache_data  # 👈 Add the caching decorator
+def load_data():
+    anno_cpg = pd.read_csv(urlopen('https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=Eb0KSwVCU49Agdru0TPlW34BIFNDMv0Zy640erZGlOQ7AA'))
+    return anno_cpg
+anno_cpg = load_data()
 #anno_cpg = pickle.load(urlopen("https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=EYHGNr8FHKxIoX_pVXknaAABQrYpq1R47u141o0S-6UaiA"))
 print('anno_cpg done')
 
