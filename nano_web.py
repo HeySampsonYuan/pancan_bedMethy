@@ -187,7 +187,7 @@ elif option2 == 'idats':
         data_containers = run_pipeline('tempDir/', export=False,betas=True)
         data_containers = data_containers[~data_containers.iloc[:,0].isna()]
         data_containers['probe_id']=data_containers.index
-        input_dnn = example_bed.merge(data_containers,how='left
+        input_dnn = example_bed.merge(data_containers,how='left')
         num_Features = len(input_dnn)
         input_dnn.columns = ['probe_id','methylation_call']
         input_dnn['methylation_call']=input_dnn['methylation_call'].fillna(0)
