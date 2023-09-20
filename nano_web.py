@@ -127,10 +127,14 @@ if option2 == 'bed file':
     else:
         st.warning("please upload your file")
 elif option2 == 'bedMethyl':
-    uploaded_file = st.file_uploader('Upload a bed file as the example: ')
+    uploaded_file = st.file_uploader('Upload a bedMethyl file as the example: ')
+    st.write(os.system('ls -l'))
+    
     if uploaded_file != None:
         st.success("File successfully uploaded")
-        
+        with open(os.path.join("tempDir",uploadedfile.name),"wb") as f:
+            f.write(uploadedfile.getbuffer())
+        st.write(os.system('ls tempDir/ -l'))
         #input_bed = pd.read_csv(uploaded_file,delim_whitespace=True)
         input_bed = pd.read_csv(uploaded_file,delim_whitespace=True,header=None)
         st.write(input_bed.head())
