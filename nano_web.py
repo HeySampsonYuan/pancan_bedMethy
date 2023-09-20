@@ -174,6 +174,7 @@ elif option2 == 'bedMethyl':
     else:
         st.warning("please upload your file")
 elif option2 == 'idats':
+    os.system('rm tempDir/*')
     uploaded_file = st.file_uploader('Upload idat files (Red and Grn) ',accept_multiple_files=True)
     st.write(os.system('ls '))
     os.system('mkdir tempDir')
