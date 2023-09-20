@@ -174,9 +174,7 @@ elif option2 == 'bedMethyl':
     else:
         st.warning("please upload your file")
 elif option2 == 'idats':
-    #os.system('rm tempDir/*')
     uploaded_file = st.file_uploader('Upload idat files (Red and Grn) ',accept_multiple_files=True)
-    st.write(os.system('ls tempDir/'))
     os.system('mkdir tempDir')
     if uploaded_file != None and len(uploaded_file)==2:
         st.success("File successfully uploaded")
@@ -184,7 +182,8 @@ elif option2 == 'idats':
             f.write(uploaded_file[0].getbuffer())
         with open(os.path.join("tempDir",uploaded_file[1].name),"wb") as f:
             f.write(uploaded_file[1].getbuffer())
-        sample_sheet = methylprep.get_sample_sheet('tempDir/', filepath=None)
+        sample_sheet = methylprep.get_sample_sheet('./tempDir/', filepath=None)
+        st.write(os.system('Test'))
         st.write(os.system('ls tempDir/'))
         data_containers = methylprep.run_pipeline('tempDir/', export=False,betas=True,array_type=None, manifest_filepath=None, sample_sheet_filepath=None, sample_names=None)
         data_containers = data_containers[~data_containers.iloc[:,0].isna()]
