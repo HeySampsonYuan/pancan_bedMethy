@@ -85,7 +85,7 @@ def match_bs(anno_cpg,input_bed):
     input_dnn['methylation_call']=input_dnn['methylation_call'].fillna(0)
     return input_dnn,len(input_bed)
 
-option2 = st.selectbox('Types of Input Data',(['bed file','bedMethyl']))    
+option2 = st.selectbox('Types of Input Data',(['bed file','bedMethyl','idats']))    
 
 if option2 == 'bed file':
     uploaded_file = st.file_uploader('Upload a bed file as the example: ')
@@ -170,5 +170,20 @@ elif option2 == 'bedMethyl':
         df_bar = pd.DataFrame({'Confidence_Score':torch.topk(cs, 5).values.tolist(),'Tumor_Type':enc.inverse_transform(torch.topk(cs, 5).indices.tolist()).tolist()})
         sns.barplot(data=df_bar, x="Confidence_Score", y="Tumor_Type",orient='h')
         st.pyplot(fig)
+    else:
+        st.warning("please upload your file")
+elif option2 == 'idats':
+    uploaded_file = st.file_uploader('Upload a bedMethyl file as the example: ',accept_multiple_files=True)
+    st.write(os.system('ls '))
+    os.system('mkdir tempDir')
+    if uploaded_file != None:
+        st.success("File successfully uploaded")
+        with open(os.path.join("tempDir",uploaded_file[0].name),"wb") as f:
+            f.write(uploaded_file.getbuffer())
+        with open(os.path.join("tempDir",uploaded_file[1].name),"wb") as f:
+            f.write(uploaded_file.getbuffer())
+        st.write(os.system('ls tempDir/ '))
+        os.system('rm tempDir/*')
+        st.write(os.system('ls tempDir/ '))
     else:
         st.warning("please upload your file")
