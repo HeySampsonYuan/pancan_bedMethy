@@ -135,7 +135,7 @@ elif option2 == 'bedMethyl':
         st.success("File successfully uploaded")
         with open(os.path.join("tempDir",uploaded_file.name),"wb") as f:
             f.write(uploaded_file.getbuffer())
-        st.write(os.system('ls tempDir/ '))
+        #st.write(os.system('ls tempDir/ '))
         #input_bed = pd.read_csv(uploaded_file,delim_whitespace=True)
         input_bed = pd.read_csv(uploaded_file,delim_whitespace=True,header=None)
         st.write(input_bed.head())
@@ -174,19 +174,49 @@ elif option2 == 'bedMethyl':
     else:
         st.warning("please upload your file")
 elif option2 == 'idats':
-    uploaded_file = st.file_uploader('Upload a bedMethyl file as the example: ',accept_multiple_files=True)
+    uploaded_file = st.file_uploader('Upload idat files (Red and Grn) ',accept_multiple_files=True)
     st.write(os.system('ls '))
     os.system('mkdir tempDir')
-    if uploaded_file != None:
+    if uploaded_file != None and len(uploaded_file)==2:
         st.success("File successfully uploaded")
         with open(os.path.join("tempDir",uploaded_file[0].name),"wb") as f:
             f.write(uploaded_file[0].getbuffer())
         with open(os.path.join("tempDir",uploaded_file[1].name),"wb") as f:
             f.write(uploaded_file[1].getbuffer())
-            
+        if     
         data_containers = run_pipeline('tempDir/', export=False,betas=True)
-
+        data_containers = data_containers[~data_containers.iloc[:,0].isna()]
+        data_containers['probe_id']=data_containers.index
+        input_dnn = example_bed.merge(data_containers,how='left')
+        input_dnn.columns = ['probe_id','methylation_call']
+        input_dnn['methylation_call']=input_dnn['methylation_call'].fillna(0)
+        torch_tensor = torch.tensor(input_dnn['methylation_call'].values)   
         
+        col1, col2 = st.columns(2)
+        col1.metric(label="Number of Input  features", value=len(input_bed))
+        col2.metric(label="Number of Features mapped to Trainingset",value= num_Features)
+        os.system('rm tempDir/*')
+        st.write(os.system('ls tempDir/ -l'))
+       
+
+        DM.eval()
+        with torch.no_grad():
+            y_val_pred_masked = DM(torch_tensor.float().to(device))
+            y_pred_softmax = torch.log_softmax(y_val_pred_masked,dim=0)
+            _, y_pred_tags = torch.max(y_pred_softmax, dim = 0)
+            label_pre = enc.inverse_transform([y_pred_tags.cpu()])
+            proba = torch.max(torch.softmax( (y_val_pred_masked - y_val_pred_masked.mean().item())/y_val_pred_masked.std( unbiased=False).item(), dim = 0)).item()
+            cs = torch.softmax( (y_val_pred_masked - y_val_pred_masked.mean().item())/y_val_pred_masked.std(unbiased=False).item(), dim = 0)
+            #proba = torch.topk(cs, 1).values.tolist()
+
+        annotated_text("The Prediction of our model is",   (f"{label_pre}","", "#ea9999") )
+        annotated_text("The Confidence Score of the Prediction is",   (f"{proba}","", "#ea9999") )
+        annotated_text("The Top5 Predictions")
+
+        fig = plt.figure(figsize=(10, 4))
+        df_bar = pd.DataFrame({'Confidence_Score':torch.topk(cs, 5).values.tolist(),'Tumor_Type':enc.inverse_transform(torch.topk(cs, 5).indices.tolist()).tolist()})
+        sns.barplot(data=df_bar, x="Confidence_Score", y="Tumor_Type",orient='h')
+        st.pyplot(fig)
         os.system('rm tempDir/*')
         st.write(os.system('ls tempDir/ '))
     else:
