@@ -182,7 +182,7 @@ elif option2 == 'idats':
             f.write(uploaded_file[0].getbuffer())
         with open(os.path.join("tempDir",uploaded_file[1].name),"wb") as f:
             f.write(uploaded_file[1].getbuffer())
-        #sample_sheet = methylprep.get_sample_sheet('./tempDir/', filepath=None)
+        sample_sheet = methylprep.get_sample_sheet('./tempDir/', filepath=None)
         #st.write(os.system('Test'))
         #st.write(os.system('ls tempDir/'))
         data_containers = methylprep.run_pipeline('tempDir/', export=False,betas=True)
