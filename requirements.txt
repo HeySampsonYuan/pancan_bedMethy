@@ -8,3 +8,4 @@ brewer2mpl==1.4.1
 st-annotated-text==3.0.0
 torch==1.12.1
 scikit-learn==1.0.2
+methylprep
