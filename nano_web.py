@@ -182,7 +182,7 @@ elif option2 == 'idats':
             f.write(uploaded_file[0].getbuffer())
         with open(os.path.join("tempDir",uploaded_file[1].name),"wb") as f:
             f.write(uploaded_file[1].getbuffer())
-        st.write(os.system('ls tempDir/ '))
+        
         os.system('rm tempDir/*')
         st.write(os.system('ls tempDir/ '))
     else:
