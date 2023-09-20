@@ -185,6 +185,7 @@ elif option2 == 'idats':
         #sample_sheet = methylprep.get_sample_sheet('./tempDir/', filepath=None)
         #data_containers = methylprep.run_pipeline('./tempDir/', export=False,betas=True)
         data_dir= './tempDir/'
+        st.write(os.system('ls ./tempDir/'))
         #data_containers = run_pipeline(data_dir, betas=True,array_type=None, make_sample_sheet=True, export=False, manifest_filepath=None, sample_sheet_filepath=None)
         data_containers =methylprep.make_pipeline(data_dir=data_dir, steps=['all'], exports=[''], estimator='beta',make_sample_sheet=True)
 
