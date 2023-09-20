@@ -185,7 +185,7 @@ elif option2 == 'idats':
         sample_sheet = methylprep.get_sample_sheet('./tempDir/', filepath=None)
         #data_containers = methylprep.run_pipeline('./tempDir/', export=False,betas=True)
         data_dir= './tempDir/'
-        data_containers = run_pipeline(data_dir, betas=True,array_type=None, make_sample_sheet=True, export=False, manifest_filepath=None, sample_sheet_filepath=None, sample_names=None)
+        data_containers = run_pipeline(data_dir, betas=True,array_type=None, make_sample_sheet=True, export=False, manifest_filepath=None, sample_sheet_filepath=None)
 
         data_containers = data_containers[~data_containers.iloc[:,0].isna()]
         data_containers['probe_id']=data_containers.index
