@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from resource import getrusage, RUSAGE_SELF
 from urllib.request import urlopen
+from methylprep import run_pipeline
 
 #import pyreadr
 st.title ("Methylation Based Tumor Classifier ")
@@ -182,6 +183,9 @@ elif option2 == 'idats':
             f.write(uploaded_file[0].getbuffer())
         with open(os.path.join("tempDir",uploaded_file[1].name),"wb") as f:
             f.write(uploaded_file[1].getbuffer())
+            
+        data_containers = run_pipeline('tempDir/', export=False,betas=True)
+
         
         os.system('rm tempDir/*')
         st.write(os.system('ls tempDir/ '))
