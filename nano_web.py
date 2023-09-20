@@ -183,9 +183,9 @@ elif option2 == 'idats':
         with open(os.path.join("tempDir",uploaded_file[1].name),"wb") as f:
             f.write(uploaded_file[1].getbuffer())
         #sample_sheet = methylprep.get_sample_sheet('./tempDir/', filepath=None)
-        st.write(os.system('Test'))
-        st.write(os.system('ls tempDir/'))
-        data_containers = methylprep.run_pipeline('tempDir/', export=False,betas=True,array_type=None, manifest_filepath=None, sample_sheet_filepath=None, sample_names=None)
+        #st.write(os.system('Test'))
+        #st.write(os.system('ls tempDir/'))
+        data_containers = methylprep.run_pipeline('tempDir/', export=False,betas=True)
         data_containers = data_containers[~data_containers.iloc[:,0].isna()]
         data_containers['probe_id']=data_containers.index
         input_dnn = example_bed.merge(data_containers,how='left')
