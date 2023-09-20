@@ -187,13 +187,14 @@ elif option2 == 'idats':
         data_containers = run_pipeline('tempDir/', export=False,betas=True)
         data_containers = data_containers[~data_containers.iloc[:,0].isna()]
         data_containers['probe_id']=data_containers.index
-        input_dnn = example_bed.merge(data_containers,how='left')
+        input_dnn = example_bed.merge(data_containers,how='left
+        num_Features = len(input_dnn)
         input_dnn.columns = ['probe_id','methylation_call']
         input_dnn['methylation_call']=input_dnn['methylation_call'].fillna(0)
         torch_tensor = torch.tensor(input_dnn['methylation_call'].values)   
         
         col1, col2 = st.columns(2)
-        col1.metric(label="Number of Input  features", value=len(input_bed))
+        col1.metric(label="Number of Input  features", value=len(data_containers))
         col2.metric(label="Number of Features mapped to Trainingset",value= num_Features)
         os.system('rm tempDir/*')
         st.write(os.system('ls tempDir/ -l'))
