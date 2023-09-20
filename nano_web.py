@@ -19,7 +19,7 @@ import seaborn as sns
 from resource import getrusage, RUSAGE_SELF
 from urllib.request import urlopen
 from methylprep import run_pipeline
-
+import methylprep
 #import pyreadr
 st.title ("Methylation Based Tumor Classifier ")
 #st.image("MHC_Digital_Treatments_Available_For_Blood_Cancer_Part_13_925x389pix_150322n_01_dc4d07f20e.jpg")
@@ -183,8 +183,9 @@ elif option2 == 'idats':
             f.write(uploaded_file[0].getbuffer())
         with open(os.path.join("tempDir",uploaded_file[1].name),"wb") as f:
             f.write(uploaded_file[1].getbuffer())
-  
-        data_containers = run_pipeline('tempDir/', export=False,betas=True,array_type=None,  manifest_filepath=None, sample_sheet_filepath=None)
+        sample_sheet = methylprep.get_sample_sheet('tempDir/', filepath=None)
+
+        data_containers = run_pipeline('tempDir/', export=False,betas=True)
         data_containers = data_containers[~data_containers.iloc[:,0].isna()]
         data_containers['probe_id']=data_containers.index
         input_dnn = example_bed.merge(data_containers,how='left')
