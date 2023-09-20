@@ -18,7 +18,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from resource import getrusage, RUSAGE_SELF
 from urllib.request import urlopen
-from methylprep import run_pipeline
 import methylprep
 #import pyreadr
 st.title ("Methylation Based Tumor Classifier ")
@@ -26,7 +25,7 @@ st.title ("Methylation Based Tumor Classifier ")
 st.subheader("please using bed file containing header as [chrom chromStart chromEnd methylation_call probe_id] or bedMethyl ")
 #st.video("S_example · Streamlit - Google Chrome 2022-12-19 15-28-09.mp4")
 
-
+print(methylprep.__version__)
 class NN_classifier(nn.Module):
     def __init__(self,n_input , n_output):
         super(NN_classifier, self).__init__()
@@ -53,7 +52,7 @@ def load_data():
     
 anno_cpg = load_data()
 #anno_cpg = pickle.load(urlopen("https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=EYHGNr8FHKxIoX_pVXknaAABQrYpq1R47u141o0S-6UaiA"))
-print('anno_cpg done')
+#print('anno_cpg done')
 
 
 @st.cache
