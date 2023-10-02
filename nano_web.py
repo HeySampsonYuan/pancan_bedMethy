@@ -87,7 +87,7 @@ def match_bs(anno_cpg,input_bed):
     input_dnn['methylation_call']=input_dnn['methylation_call'].fillna(0)
     return input_dnn,len(input_bed)
 
-option2 = st.selectbox('Types of Input Data',(['bed file','bedMethyl','idats']))    
+option2 = st.selectbox('Types of Input Data',(['bed file','bedMethyl']))    
 
 if option2 == 'bed file':
     uploaded_file = st.file_uploader('Upload a bed file as the example: ')
