@@ -19,6 +19,8 @@ import seaborn as sns
 from resource import getrusage, RUSAGE_SELF
 from urllib.request import urlopen
 import methylprep
+import psutil
+
 #import pyreadr
 st.title ("Methylation Based Tumor Classifier ")
 #st.image("MHC_Digital_Treatments_Available_For_Blood_Cancer_Part_13_925x389pix_150322n_01_dc4d07f20e.jpg")
@@ -176,6 +178,9 @@ elif option2 == 'idats':
     uploaded_file = st.file_uploader('Upload idat files (Red and Grn) ',accept_multiple_files=True)
     os.system('mkdir tempDir')
     if uploaded_file != None and len(uploaded_file)==2:
+
+
+        
         st.success("File successfully uploaded")
         with open(os.path.join("tempDir",uploaded_file[0].name),"wb") as f:
             f.write(uploaded_file[0].getbuffer())
@@ -186,6 +191,10 @@ elif option2 == 'idats':
         #data_containers = methylprep.run_pipeline('./tempDir/', export=False,betas=True)
         data_dir= './tempDir/'
         st.write(os.system('ls ./tempDir/'))
+        
+        disk_usage = psutil.disk_usage('/')
+        print(f"Disk Usage: {disk_usage.percent}%")
+        
         #data_containers = run_pipeline(data_dir, betas=True,array_type=None, make_sample_sheet=True, export=False, manifest_filepath=None, sample_sheet_filepath=None)
         data_containers =methylprep.make_pipeline(data_dir=data_dir, steps=['all'], exports=[''], estimator='beta',make_sample_sheet=True)
 
