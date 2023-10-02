@@ -194,10 +194,12 @@ elif option2 == 'idats':
         
         disk_usage = psutil.disk_usage('/')
         print(f"Disk Usage: {disk_usage.percent}%")
-        
+        try:
         #data_containers = run_pipeline(data_dir, betas=True,array_type=None, make_sample_sheet=True, export=False, manifest_filepath=None, sample_sheet_filepath=None)
-        data_containers =methylprep.make_pipeline(data_dir=data_dir, steps=['all'], exports=[''], estimator='beta',make_sample_sheet=True)
-
+            data_containers =methylprep.make_pipeline(data_dir=data_dir, steps=['all'], exports=[''], estimator='beta',make_sample_sheet=True)
+        else:
+            disk_usage = psutil.disk_usage('/')
+            print(f"Disk Usage: {disk_usage.percent}%")
         data_containers = data_containers[~data_containers.iloc[:,0].isna()]
         data_containers['probe_id']=data_containers.index
         input_dnn = example_bed.merge(data_containers,how='left')
