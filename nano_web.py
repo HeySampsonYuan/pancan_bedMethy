@@ -53,7 +53,7 @@ def load_data():
     return anno_cpg
     
 anno_cpg = load_data()
-#anno_cpg = pickle.load(urlopen("https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=EYHGNr8FHKxIoX_pVXknaAABQrYpq1R47u141o0S-6UaiA"))
+#anno_cpg = pickle.load(urlopen("https://charitede-my.sharepoint.com/:u:/g/personal/dongsheng_yuan_charite_de/ETnaFmBmdFxCnx4pygZJ4fkB8Nk8_wrswSMpcTQy7mtiRg"))
 #print('anno_cpg done')
 
 
