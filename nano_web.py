@@ -62,7 +62,7 @@ def load_model(option1):
     if option1 == 'Pan-cancer_v5i':
         model_files = pickle.load(urlopen("https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=EYHf66EDVJVPrjPaBimBcocBIGwCFvzx8MHOkrthOYj8CQ"))
     elif option1 == 'Brain Tumor':
-        model_files = pickle.load(urlopen('https://charitede-my.sharepoint.com/:u:/g/personal/dongsheng_yuan_charite_de/EZDvisj5GWlGg26ZalOpnx0BZdRGfRfye23mSKmY61shxw?e=LOCf7A'))
+        model_files = pickle.load(urlopen('https://charitede-my.sharepoint.com/personal/dongsheng_yuan_charite_de/_layouts/52/download.aspx?share=EZDvisj5GWlGg26ZalOpnx0BZdRGfRfye23mSKmY61shxw'))
     model = model_files[0]
     enc =  model_files[1]
     example_bed = model_files[2]
